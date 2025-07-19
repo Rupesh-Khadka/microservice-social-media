@@ -172,8 +172,7 @@
     "start": "node dist/server.js",
     "build": "tsc",
     "dev": "nodemon src/server.ts",
-    "prisma:generate": "prisma generate",
-    "postinstall": "npx prisma generate"
+    "db:deploy": "npx prisma migrate deploy && npx prisma generate"
   },
   "keywords": [],
   "author": "",

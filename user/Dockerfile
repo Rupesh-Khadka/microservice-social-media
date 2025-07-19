@@ -15,8 +15,11 @@ COPY prisma ./prisma
 COPY tsconfig.json ./
 COPY src ./src
 
+# COPY .env to make environment variables available during build (for Prisma)
+COPY .env ./
+
 # Compile TypeScript to JavaScript (into ./dist)
-RUN npm run prisma:generate
+RUN npm run db:deploy
 RUN npm run build
 
 # Run app
@@ -27,10 +30,15 @@ WORKDIR /user/src/app
 # Copy only necessary files from build stage
 COPY package*.json ./
 RUN npm ci --only=production
+RUN npm install -g nodemon 
 
 # Copy compiled JavaScript and any required assets
 COPY --from=build /user/src/app/dist ./dist
 COPY --from=build /user/src/app/prisma ./prisma
+
+# copy the generated prisma client
+COPY --from=build /user/src/app/node_modules/.prisma ./node_modules/.prisma
+
 
 # If you're using a .env file, you can copy it here (optional)
 COPY .env ./
@@ -42,6 +50,9 @@ ENV NODE_ENV=production
 EXPOSE 3001
 # Run the server
 CMD ["node", "dist/server.js"]
+# CMD ["sh", "-c", "npm run db:deploy && npm run dev"]
+
+
 
 # CMD ["sh", "-c", "npx prisma migrate deploy && node dist/server.js"]
 
