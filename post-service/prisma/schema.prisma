@@ -1,0 +1,23 @@
+generator client {
+    provider        = "prisma-client-js"
+    previewFeatures = ["multiSchema"]
+}
+
+datasource db {
+    provider  = "postgresql"
+    url       = env("DATABASE_URL")
+    directUrl = env("DATABASE_URL_UNPOOLED")
+    schemas   = ["post_service"]
+}
+
+model Post {
+    id        String   @id @default(uuid())
+    user      String
+    title     String?
+    content   String
+    mediaIds  String[]
+    createdAt DateTime @default(now())
+
+    @@index([content])
+    @@schema("post_service")
+}
