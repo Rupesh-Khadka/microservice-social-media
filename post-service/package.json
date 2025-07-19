@@ -6,8 +6,8 @@
   "scripts": {
     "start": "node dist/server.js",
     "build": "tsc",
-    "prisma:generate": "prisma generate",
-    "dev": "nodemon src/server.ts"
+    "dev": "nodemon src/server.ts",
+    "db:deploy": "npx prisma migrate deploy && npx prisma generate"
   },
   "keywords": [],
   "author": "",
