@@ -50,9 +50,3 @@ ENV NODE_ENV=production
 EXPOSE 3001
 # Run the server
 CMD ["node", "dist/server.js"]
-# CMD ["sh", "-c", "npm run db:deploy && npm run dev"]
-
-
-
-# CMD ["sh", "-c", "npx prisma migrate deploy && node dist/server.js"]
-
