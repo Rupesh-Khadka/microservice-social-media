@@ -2,7 +2,7 @@
 FROM node:20-alpine AS build
 
 # Set working directory inside the container
-WORKDIR /usr/src/app
+WORKDIR /user/src/app
 
 # Copy only dependency-related files first for layer caching
 COPY package*.json ./
@@ -22,15 +22,15 @@ RUN npm run build
 # Run app
 FROM node:20-alpine
 
-WORKDIR /usr/src/app
+WORKDIR /user/src/app
 
 # Copy only necessary files from build stage
 COPY package*.json ./
 RUN npm ci --only=production
 
 # Copy compiled JavaScript and any required assets
-COPY --from=build /usr/src/app/dist ./dist
-COPY --from=build /usr/src/app/prisma ./prisma
+COPY --from=build /user/src/app/dist ./dist
+COPY --from=build /user/src/app/prisma ./prisma
 
 # If you're using a .env file, you can copy it here (optional)
 COPY .env ./
@@ -42,3 +42,6 @@ ENV NODE_ENV=production
 EXPOSE 3001
 # Run the server
 CMD ["node", "dist/server.js"]
+
+# CMD ["sh", "-c", "npx prisma migrate deploy && node dist/server.js"]
+

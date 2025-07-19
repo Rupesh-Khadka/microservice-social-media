@@ -10,8 +10,8 @@ import RedisStore from "rate-limit-redis";
 
 import errorHandler from "./middleware/errorHandler";
 
-import logger from "../src/utils/logger";
 import router from "./routes/user-service";
+import logger from "./utils/logger";
 
 const app = express();
 

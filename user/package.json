@@ -171,7 +171,9 @@
   "scripts": {
     "start": "node dist/server.js",
     "build": "tsc",
-    "dev": "nodemon src/server.ts"
+    "dev": "nodemon src/server.ts",
+    "prisma:generate": "prisma generate",
+    "postinstall": "npx prisma generate"
   },
   "keywords": [],
   "author": "",
