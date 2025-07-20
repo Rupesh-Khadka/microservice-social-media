@@ -7,8 +7,8 @@ import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import RedisStore from "rate-limit-redis";
 
-import postRoute from "../src/routes/post-routes";
-import logger from "../src/utils/logger";
+import postRoute from "./routes/post-routes";
+import logger from "./utils/logger";
 import errorHandler from "./middleware/errorHandler";
 import { connectToRabbitMq } from "./utils/rabbitmq";
 

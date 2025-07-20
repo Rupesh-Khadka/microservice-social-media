@@ -7,9 +7,9 @@ import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import RedisStore from "rate-limit-redis";
 
-import logger from "../src/utils/logger";
+import logger from "./utils/logger";
 import errorHandler from "./middleware/errorHandler";
-import mediaRoutes from "../src/routes/media-routes";
+import mediaRoutes from "./routes/media-routes";
 import { connectToRabbitMq, consumeEvent } from "./utils/rabbitmq";
 import { handlePostDelete } from "./eventHandlers/mediaEventHandler";
 
@@ -56,7 +56,7 @@ async function startServer() {
     await connectToRabbitMq();
 
     //Consume all the events
-    await consumeEvent("post-delete", handlePostDelete   );
+    await consumeEvent("post-delete", handlePostDelete);
 
     app.listen(PORT, () => {
       logger.info(`Media service runnning on port ${PORT}`);
